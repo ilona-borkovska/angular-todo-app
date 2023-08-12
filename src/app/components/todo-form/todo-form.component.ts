@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-todo-form',
@@ -22,9 +23,13 @@ export class TodoFormComponent {
   get title() {
     return this.todoForm.get('title') as FormControl;
   }
+  constructor(
+    private messageService: MessageService,
+  ) {}
 
   handleFormSubmit() {
     if (this.todoForm.invalid) {
+      this.messageService.showMessage('The title must be at least 3 letters')
       return;
     }
 
